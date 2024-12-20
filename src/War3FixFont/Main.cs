@@ -7,7 +7,11 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
 using War3FixFont.WinAPI;
+using System.Net.NetworkInformation;
 using Timer = System.Timers.Timer;
+using System.Net.Sockets;
+using System.IO;
+using System.Reflection;
 
 namespace War3FixFont;
 
@@ -17,7 +21,7 @@ public partial class Main : Form
 
     private readonly Timer _timer = new();
 
-    private const string Url = "https://github.com/Zonciu/War3FixFont";
+    private const string Url = "https://github.com/shaoxi2010/War3FixFont";
 
     /// <summary>
     /// 修复频率限制
@@ -758,4 +762,61 @@ public partial class Main : Form
     }
 
     #endregion
+
+    private void NetBox_DropDown(object sender, EventArgs e)
+    {
+        this.NetBox.Items.Clear();
+        foreach (NetworkInterface item in NetworkInterface.GetAllNetworkInterfaces())
+        {
+            if (item.OperationalStatus == OperationalStatus.Up)
+            {
+                foreach (UnicastIPAddressInformation ip in item.GetIPProperties().UnicastAddresses)
+                {
+                    if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
+                    {
+                        this.NetBox.Items.Add(ip.Address.ToString());
+                    }
+                }
+            }
+        }
+    }
+
+    private void GameButton_Click(object sender, EventArgs e)
+    {
+        var FormPwd = System.Windows.Forms.Application.StartupPath;
+        var War3Bin = Path.Combine(FormPwd, "war3.exe");
+        var ForceIP = Path.Combine(FormPwd, "ForceBindIP.exe");
+        var BindIP = Path.Combine(FormPwd, "BindIP.dll");
+        if (!File.Exists(War3Bin))
+        {
+            MessageBox.Show("请将程序放置到魔兽争霸3安装目录下！");
+            return;
+        }
+        if (!File.Exists(ForceIP))
+        {
+            byte[] bytes = Properties.Resources.ForceBindIP_exe;
+            File.WriteAllBytes(ForceIP, bytes);
+        }
+        if (!File.Exists(BindIP))
+        {
+            byte[] bytes = Properties.Resources.BindIP_dll;
+            File.WriteAllBytes(BindIP, bytes);
+        }
+        try
+        {
+            var BindWar3 = new Process();
+            BindWar3.StartInfo.FileName = ForceIP;
+            BindWar3.StartInfo.CreateNoWindow = false;
+            BindWar3.StartInfo.Arguments = $"-i {this.NetBox.SelectedItem.ToString()} {War3Bin} -window";
+            BindWar3.Start();
+        }
+        catch
+        {
+            var war3 = new Process();
+            war3.StartInfo.FileName = War3Bin;
+            war3.StartInfo.CreateNoWindow = false;
+            war3.StartInfo.Arguments = "-window";
+            war3.Start();
+        }
+    }
 }
