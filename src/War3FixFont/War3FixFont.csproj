@@ -89,6 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComboBoxItem.cs" />
+    <Compile Include="Mouse.cs" />
     <Compile Include="SettingsManager.cs" />
     <Compile Include="FixHelper.cs" />
     <Compile Include="HotKey.cs" />

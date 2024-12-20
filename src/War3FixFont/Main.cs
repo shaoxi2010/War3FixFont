@@ -66,6 +66,10 @@ public partial class Main : Form
 
     private int _showMeHotKeyId;
 
+    private const int MouseHotKeyId = 3;
+
+    private int _mouseHotKeyId;
+
     public readonly SettingsManager SettingsManager = new();
 
     public Settings Settings => SettingsManager.Settings;
@@ -148,6 +152,27 @@ public partial class Main : Form
             }
         };
         UpdateShowMeHotKey();
+        // 读取鼠标连点快捷键配置
+        if (Settings.MouseHotKey.IsValid)
+        {
+            MouseHotKeyInputBox.HotKey = Settings.MouseHotKey;
+        }
+        else
+        {
+            Settings.MouseHotKey = HotKey.DefaultMouseHotKey;
+            MouseHotKeyInputBox.HotKey = Settings.MouseHotKey;
+            SettingsManager.Save();
+        }
+
+        MouseHotKeyInputBox.HotKeyEditing += (_, _) =>
+        {
+            if (_mouseHotKeyId != 0)
+            {
+                _hook.UnregisterHotKey(_mouseHotKeyId);
+                _mouseHotKeyId = 0;
+            }
+        };
+        UpdateMouseHotKey();
 
         // 窗口切换事件
         LockCursorCheckBox.Checked = Settings.LockCursor;
@@ -193,6 +218,10 @@ public partial class Main : Form
         else if (Settings.ShowMeHotKey.SameAs(args))
         {
             ToggleWindow();
+        }
+        else if (Settings.MouseHotKey.SameAs(args))
+        {
+            ToggleClick();
         }
     }
 
@@ -543,6 +572,18 @@ public partial class Main : Form
         }
     }
 
+    private void ToggleClick()
+    {
+        if (ClickTimer.Enabled)
+        {
+            ClickTimer.Stop();
+        }
+        else
+        {
+            ClickTimer.Start();
+        }
+    }
+
     /// <summary>
     /// 显示本窗口快捷键改变
     /// </summary>
@@ -556,6 +597,18 @@ public partial class Main : Form
         UpdateShowMeHotKey();
     }
 
+    /// <summary>
+    /// 鼠标连点快捷键改变
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void MouseHotKeyInputBox_HotKeyChanged(object sender, EventArgs e)
+    {
+        var hotkey = MouseHotKeyInputBox.HotKey;
+        Settings.MouseHotKey = hotkey.IsValid ? hotkey : HotKey.DefaultMouseHotKey;
+        SettingsManager.Save();
+        UpdateMouseHotKey();
+    }
     /// <summary>
     /// 更新显示窗口快捷键
     /// </summary>
@@ -579,6 +632,33 @@ public partial class Main : Form
             else
             {
                 MessageBox.Show("注册显示窗口快捷键失败");
+            }
+        }
+    }
+
+    /// <summary>
+    /// 更新鼠标连点快捷键
+    /// </summary>
+    private void UpdateMouseHotKey()
+    {
+        if (_mouseHotKeyId != 0)
+        {
+            _hook.UnregisterHotKey(_mouseHotKeyId);
+            _mouseHotKeyId = 0;
+        }
+
+        var hotKey = MouseHotKeyInputBox.HotKey;
+        if (hotKey.IsValid)
+        {
+            var id = _hook.RegisterHotKey(hotKey.Modifier, hotKey.KeyCode, MouseHotKeyId);
+            if (id.HasValue)
+            {
+                _mouseHotKeyId = id.Value;
+                ActiveControl = null;
+            }
+            else
+            {
+                MessageBox.Show("注册鼠标连点快捷键失败");
             }
         }
     }
@@ -818,5 +898,10 @@ public partial class Main : Form
             war3.StartInfo.Arguments = "-window";
             war3.Start();
         }
+    }
+
+    private void ClickTimer_Tick(object sender, EventArgs e)
+    {
+        Mouse.ClickLeftMouseButton();
     }
 }

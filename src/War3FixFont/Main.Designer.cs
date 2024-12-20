@@ -55,12 +55,15 @@ partial class Main
             this.GameButton = new System.Windows.Forms.Button();
             this.ShowMeHotKeyInputBox = new War3FixFont.HotKeyInputBox();
             this.HotKeyInputBox = new War3FixFont.HotKeyInputBox();
+            this.MouseHotKeyInputBox = new War3FixFont.HotKeyInputBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.ClickTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.IntervalInput)).BeginInit();
             this.SuspendLayout();
             // 
             // FixButton
             // 
-            this.FixButton.Location = new System.Drawing.Point(24, 24);
+            this.FixButton.Location = new System.Drawing.Point(566, 13);
             this.FixButton.Margin = new System.Windows.Forms.Padding(6, 4, 6, 4);
             this.FixButton.Name = "FixButton";
             this.FixButton.Size = new System.Drawing.Size(150, 46);
@@ -74,7 +77,7 @@ partial class Main
             this.EnableHotKeyCheckBox.AutoSize = true;
             this.EnableHotKeyCheckBox.Checked = true;
             this.EnableHotKeyCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.EnableHotKeyCheckBox.Location = new System.Drawing.Point(24, 216);
+            this.EnableHotKeyCheckBox.Location = new System.Drawing.Point(24, 144);
             this.EnableHotKeyCheckBox.Margin = new System.Windows.Forms.Padding(6, 4, 6, 4);
             this.EnableHotKeyCheckBox.Name = "EnableHotKeyCheckBox";
             this.EnableHotKeyCheckBox.Size = new System.Drawing.Size(162, 28);
@@ -87,7 +90,7 @@ partial class Main
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(20, 436);
+            this.label1.Location = new System.Drawing.Point(20, 366);
             this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(310, 24);
@@ -98,7 +101,7 @@ partial class Main
             // 
             this.LinkLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.LinkLabel.AutoSize = true;
-            this.LinkLabel.Location = new System.Drawing.Point(20, 476);
+            this.LinkLabel.Location = new System.Drawing.Point(20, 406);
             this.LinkLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.LinkLabel.Name = "LinkLabel";
             this.LinkLabel.Size = new System.Drawing.Size(502, 24);
@@ -110,7 +113,7 @@ partial class Main
             // BorderMaxWindowButton
             // 
             this.BorderMaxWindowButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.BorderMaxWindowButton.Location = new System.Drawing.Point(562, 78);
+            this.BorderMaxWindowButton.Location = new System.Drawing.Point(566, 132);
             this.BorderMaxWindowButton.Margin = new System.Windows.Forms.Padding(6, 4, 6, 4);
             this.BorderMaxWindowButton.Name = "BorderMaxWindowButton";
             this.BorderMaxWindowButton.Size = new System.Drawing.Size(150, 46);
@@ -122,7 +125,7 @@ partial class Main
             // FullScreenButton
             // 
             this.FullScreenButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.FullScreenButton.Location = new System.Drawing.Point(562, 24);
+            this.FullScreenButton.Location = new System.Drawing.Point(566, 76);
             this.FullScreenButton.Margin = new System.Windows.Forms.Padding(6, 4, 6, 4);
             this.FullScreenButton.Name = "FullScreenButton";
             this.FullScreenButton.Size = new System.Drawing.Size(150, 46);
@@ -134,7 +137,7 @@ partial class Main
             // VersionLabel
             // 
             this.VersionLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.VersionLabel.Location = new System.Drawing.Point(562, 476);
+            this.VersionLabel.Location = new System.Drawing.Point(562, 406);
             this.VersionLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.VersionLabel.Name = "VersionLabel";
             this.VersionLabel.Size = new System.Drawing.Size(150, 24);
@@ -145,7 +148,7 @@ partial class Main
             // EnableTimerFixCheckBox
             // 
             this.EnableTimerFixCheckBox.AutoSize = true;
-            this.EnableTimerFixCheckBox.Location = new System.Drawing.Point(24, 104);
+            this.EnableTimerFixCheckBox.Location = new System.Drawing.Point(24, 32);
             this.EnableTimerFixCheckBox.Margin = new System.Windows.Forms.Padding(6, 4, 6, 4);
             this.EnableTimerFixCheckBox.Name = "EnableTimerFixCheckBox";
             this.EnableTimerFixCheckBox.Size = new System.Drawing.Size(138, 28);
@@ -156,7 +159,7 @@ partial class Main
             // 
             // IntervalInput
             // 
-            this.IntervalInput.Location = new System.Drawing.Point(186, 100);
+            this.IntervalInput.Location = new System.Drawing.Point(186, 28);
             this.IntervalInput.Margin = new System.Windows.Forms.Padding(0);
             this.IntervalInput.Name = "IntervalInput";
             this.IntervalInput.Size = new System.Drawing.Size(108, 35);
@@ -171,7 +174,7 @@ partial class Main
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(308, 108);
+            this.label2.Location = new System.Drawing.Point(308, 36);
             this.label2.Margin = new System.Windows.Forms.Padding(0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(34, 24);
@@ -181,7 +184,7 @@ partial class Main
             // ManualButton
             // 
             this.ManualButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ManualButton.Location = new System.Drawing.Point(562, 414);
+            this.ManualButton.Location = new System.Drawing.Point(566, 344);
             this.ManualButton.Margin = new System.Windows.Forms.Padding(6);
             this.ManualButton.Name = "ManualButton";
             this.ManualButton.Size = new System.Drawing.Size(150, 46);
@@ -200,7 +203,7 @@ partial class Main
             // WindowModeSelect
             // 
             this.WindowModeSelect.FormattingEnabled = true;
-            this.WindowModeSelect.Location = new System.Drawing.Point(138, 156);
+            this.WindowModeSelect.Location = new System.Drawing.Point(138, 84);
             this.WindowModeSelect.Margin = new System.Windows.Forms.Padding(6);
             this.WindowModeSelect.Name = "WindowModeSelect";
             this.WindowModeSelect.Size = new System.Drawing.Size(238, 32);
@@ -210,7 +213,7 @@ partial class Main
             // WindowModeLabel
             // 
             this.WindowModeLabel.AutoSize = true;
-            this.WindowModeLabel.Location = new System.Drawing.Point(24, 164);
+            this.WindowModeLabel.Location = new System.Drawing.Point(24, 92);
             this.WindowModeLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.WindowModeLabel.Name = "WindowModeLabel";
             this.WindowModeLabel.Size = new System.Drawing.Size(106, 24);
@@ -220,7 +223,7 @@ partial class Main
             // AutoWindowCheckBox
             // 
             this.AutoWindowCheckBox.AutoSize = true;
-            this.AutoWindowCheckBox.Location = new System.Drawing.Point(392, 160);
+            this.AutoWindowCheckBox.Location = new System.Drawing.Point(368, 32);
             this.AutoWindowCheckBox.Margin = new System.Windows.Forms.Padding(6);
             this.AutoWindowCheckBox.Name = "AutoWindowCheckBox";
             this.AutoWindowCheckBox.Size = new System.Drawing.Size(186, 28);
@@ -232,7 +235,7 @@ partial class Main
             // LockCursorCheckBox
             // 
             this.LockCursorCheckBox.AutoSize = true;
-            this.LockCursorCheckBox.Location = new System.Drawing.Point(24, 276);
+            this.LockCursorCheckBox.Location = new System.Drawing.Point(24, 204);
             this.LockCursorCheckBox.Margin = new System.Windows.Forms.Padding(6);
             this.LockCursorCheckBox.Name = "LockCursorCheckBox";
             this.LockCursorCheckBox.Size = new System.Drawing.Size(186, 28);
@@ -244,7 +247,7 @@ partial class Main
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(24, 336);
+            this.label3.Location = new System.Drawing.Point(24, 264);
             this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(130, 24);
@@ -254,7 +257,7 @@ partial class Main
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(522, 272);
+            this.label4.Location = new System.Drawing.Point(276, 208);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(130, 24);
@@ -264,7 +267,7 @@ partial class Main
             // NetBox
             // 
             this.NetBox.FormattingEnabled = true;
-            this.NetBox.Location = new System.Drawing.Point(522, 305);
+            this.NetBox.Location = new System.Drawing.Point(526, 208);
             this.NetBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.NetBox.Name = "NetBox";
             this.NetBox.Size = new System.Drawing.Size(190, 32);
@@ -274,7 +277,7 @@ partial class Main
             // GameButton
             // 
             this.GameButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.GameButton.Location = new System.Drawing.Point(564, 353);
+            this.GameButton.Location = new System.Drawing.Point(566, 286);
             this.GameButton.Margin = new System.Windows.Forms.Padding(6);
             this.GameButton.Name = "GameButton";
             this.GameButton.Size = new System.Drawing.Size(150, 46);
@@ -288,7 +291,7 @@ partial class Main
             this.ShowMeHotKeyInputBox.Alt = false;
             this.ShowMeHotKeyInputBox.Control = false;
             this.ShowMeHotKeyInputBox.KeyCode = System.Windows.Forms.Keys.None;
-            this.ShowMeHotKeyInputBox.Location = new System.Drawing.Point(166, 328);
+            this.ShowMeHotKeyInputBox.Location = new System.Drawing.Point(166, 256);
             this.ShowMeHotKeyInputBox.Margin = new System.Windows.Forms.Padding(6);
             this.ShowMeHotKeyInputBox.Name = "ShowMeHotKeyInputBox";
             this.ShowMeHotKeyInputBox.Shift = false;
@@ -304,7 +307,7 @@ partial class Main
             this.HotKeyInputBox.BackColor = System.Drawing.SystemColors.Window;
             this.HotKeyInputBox.Control = false;
             this.HotKeyInputBox.KeyCode = System.Windows.Forms.Keys.None;
-            this.HotKeyInputBox.Location = new System.Drawing.Point(204, 212);
+            this.HotKeyInputBox.Location = new System.Drawing.Point(204, 140);
             this.HotKeyInputBox.Margin = new System.Windows.Forms.Padding(6);
             this.HotKeyInputBox.Name = "HotKeyInputBox";
             this.HotKeyInputBox.Shift = false;
@@ -314,11 +317,43 @@ partial class Main
             this.HotKeyInputBox.WordWrap = false;
             this.HotKeyInputBox.HotKeyChanged += new System.EventHandler(this.HotKeyInputBox_HotKeyChanged);
             // 
+            // MouseHotKeyInputBox
+            // 
+            this.MouseHotKeyInputBox.Alt = false;
+            this.MouseHotKeyInputBox.Control = false;
+            this.MouseHotKeyInputBox.KeyCode = System.Windows.Forms.Keys.None;
+            this.MouseHotKeyInputBox.Location = new System.Drawing.Point(166, 303);
+            this.MouseHotKeyInputBox.Margin = new System.Windows.Forms.Padding(6);
+            this.MouseHotKeyInputBox.Name = "MouseHotKeyInputBox";
+            this.MouseHotKeyInputBox.Shift = false;
+            this.MouseHotKeyInputBox.ShortcutsEnabled = false;
+            this.MouseHotKeyInputBox.Size = new System.Drawing.Size(302, 35);
+            this.MouseHotKeyInputBox.TabIndex = 33;
+            this.MouseHotKeyInputBox.WordWrap = false;
+            this.MouseHotKeyInputBox.HotKeyChanged += new System.EventHandler(this.MouseHotKeyInputBox_HotKeyChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(24, 314);
+            this.label5.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(106, 24);
+            this.label5.TabIndex = 34;
+            this.label5.Text = "左键连点";
+            // 
+            // ClickTimer
+            // 
+            this.ClickTimer.Interval = 50;
+            this.ClickTimer.Tick += new System.EventHandler(this.ClickTimer_Tick);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(736, 518);
+            this.ClientSize = new System.Drawing.Size(736, 448);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.MouseHotKeyInputBox);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.NetBox);
             this.Controls.Add(this.GameButton);
@@ -345,7 +380,7 @@ partial class Main
             this.Margin = new System.Windows.Forms.Padding(6, 4, 6, 4);
             this.MaximizeBox = false;
             this.Name = "Main";
-            this.Text = "魔兽争霸3常用工具";
+            this.Text = "魔兽争霸3字体修复和常用工具";
             this.SizeChanged += new System.EventHandler(this.Main_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.IntervalInput)).EndInit();
             this.ResumeLayout(false);
@@ -378,4 +413,7 @@ partial class Main
     private Label label4;
     private ComboBox NetBox;
     private Button GameButton;
+    private HotKeyInputBox MouseHotKeyInputBox;
+    private Label label5;
+    private Timer ClickTimer;
 }

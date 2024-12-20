@@ -11,6 +11,8 @@ public class HotKey
 
     public static readonly HotKey DefaultShowMeHotKey = new("1,0,0,Q");
 
+    public static readonly HotKey DefaultMouseHotKey = new("1,0,0,G");
+
     public static readonly HotKey Empty = new("");
 
     public Keys KeyCode { get; set; }

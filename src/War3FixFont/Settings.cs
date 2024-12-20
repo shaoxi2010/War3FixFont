@@ -48,6 +48,21 @@ public class Settings
     }
 
     /// <summary>
+    /// 鼠标连点快捷键
+    /// </summary>
+    [JsonProperty("Mouse")]
+    public string MouseHotKeyString { get; set; } = "1,0,0,G";
+
+    /// <summary>
+    /// 鼠标连点快捷键
+    /// </summary>
+    [JsonIgnore]
+    public HotKey MouseHotKey
+    {
+        get => HotKey.Deserialize(MouseHotKeyString);
+        set => MouseHotKeyString = value.Serialize();
+    }
+    /// <summary>
     /// 窗口模式
     /// </summary>
     [JsonProperty]
